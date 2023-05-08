@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "693205446244",
+    "project_id": "trarot-card",
+    "storage_bucket": "trarot-card.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:693205446244:android:36d58610021b75eb79f971",
+        "android_client_info": {
+          "package_name": "com.yongdd.tarotcard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "693205446244-h02a992sm1ushnrjg4jnaars1e3jusq8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmDiRU2IzgSHLFj2qrNF6Sp_EFhRhupYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "693205446244-h02a992sm1ushnrjg4jnaars1e3jusq8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

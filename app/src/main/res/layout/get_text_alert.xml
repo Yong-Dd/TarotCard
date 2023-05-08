@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/back_round_white_10"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/nanum_eb"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/black_2f"
+        android:textSize="18sp"
+        tools:text="변경할 이름을 적어주세요 :D" />
+
+    <EditText
+        android:id="@+id/writeET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/back_round_gray_e_10"
+        android:fontFamily="@font/nanum_r"
+        tools:hint="닉네임은 15글자까지 가능합니다!"
+        android:padding="10dp"
+        android:textColor="@color/black_2f"
+        android:textColorHint="@color/gray_92"
+        android:lineSpacingExtra="5sp"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginStart="70dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="취소"
+            android:fontFamily="@font/nanum_r"
+            android:background="@color/white"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black_2f"
+            android:paddingHorizontal="5dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="작성 완료 😊"
+            android:fontFamily="@font/nanum_r"
+            android:background="@color/white"
+            android:textColor="@color/black_2f"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+</LinearLayout>

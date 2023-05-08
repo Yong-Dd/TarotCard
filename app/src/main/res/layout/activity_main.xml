@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="vm"
             type="com.yongdd.tarotcard.viewmodel.MainViewModel" />
         <import type="android.view.View" />
+        <import type="com.yongdd.tarotcard.utils.enums.CardType" />
     </data>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -18,6 +19,7 @@
         android:id="@+id/headerCL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
@@ -30,32 +32,36 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/userImageV"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
+                android:onClick="@{() -> vm.profileImgClick()}"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_account_circle" />
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="45dp"
                 android:fontFamily="@font/bm_jua"
-                android:text="Hi, "
+                android:gravity="center_vertical"
+                android:text="Hi,"
                 android:textColor="@color/black_2f"
-                android:textSize="22sp" />
+                android:textSize="30sp" />
 
             <LinearLayout
                 android:id="@+id/nickNameLL"
@@ -67,21 +73,31 @@
                 <TextView
                     android:id="@+id/nickNameTV"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:fontFamily="@font/bm_jua"
-                    android:text="당신의 이름은?"
+                    android:gravity="center"
+                    android:onClick="@{()->vm.nickNameAddClick()}"
+                    android:paddingHorizontal="5dp"
+                    android:text="@{vm.profile.name}"
                     android:textColor="@color/yellow100"
-                    android:textSize="20sp"
-                    tools:visibility="gone" />
+                    android:textSize="28sp"
+                    android:visibility="@{vm.profile.name!=null?View.VISIBLE:View.GONE,default=gone}"
+                    tools:text="디디"
+                    tools:visibility="visible" />
 
                 <ImageButton
                     android:id="@+id/nickNamePlusBtn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:background="@color/white"
+                    android:onClick="@{()->vm.nickNameAddClick()}"
                     android:padding="12dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/plus_button_yellow" />
+                    android:src="@drawable/plus_button_yellow"
+                    android:visibility="@{vm.profile.name==null?View.VISIBLE:View.GONE,default=gone}"
+                    tools:visibility="visible" />
             </LinearLayout>
 
         </LinearLayout>
@@ -89,24 +105,31 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/mainPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipChildren="false"
+        android:clipToPadding="false" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="60dp">
 
         <LinearLayout
             android:id="@+id/tab1LL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
+            android:onClick="@{()->vm.tabClick(1)}"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tab2LL"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -118,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
+                android:visibility="@{vm.currentCardType==CardType.MAJOR?View.VISIBLE:View.INVISIBLE,default=visible}"
                 app:srcCompat="@drawable/circle_violet" />
 
             <TextView
@@ -127,7 +151,8 @@
                 android:fontFamily="@font/nanum_eb"
                 android:text="@string/major"
                 android:textColor="@color/main_violet"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{vm.currentCardType==CardType.MAJOR?View.VISIBLE:View.GONE,default=visible}" />
 
             <TextView
                 android:id="@+id/tab1TV"
@@ -137,7 +162,7 @@
                 android:text="@string/major"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{vm.currentCardType!=CardType.MAJOR?View.VISIBLE:View.GONE,default=gone}" />
 
         </LinearLayout>
 
@@ -145,8 +170,12 @@
             android:id="@+id/tab2LL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
+            android:onClick="@{()->vm.tabClick(2)}"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tab3LL"
             app:layout_constraintStart_toEndOf="@+id/tab1LL"
@@ -156,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:visibility="invisible"
+                android:visibility="@{vm.currentCardType==CardType.SWORD?View.VISIBLE:View.INVISIBLE,default=invisible}"
                 app:srcCompat="@drawable/circle_violet" />
 
             <TextView
@@ -164,19 +193,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_eb"
-                android:text="@string/wand"
+                android:text="@string/sword"
                 android:textColor="@color/main_violet"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{vm.currentCardType==CardType.SWORD?View.VISIBLE:View.GONE,default=gone}" />
 
             <TextView
                 android:id="@+id/tab2TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_r"
-                android:text="@string/wand"
+                android:text="@string/sword"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{vm.currentCardType!=CardType.SWORD?View.VISIBLE:View.GONE,default=visible}" />
 
         </LinearLayout>
 
@@ -184,8 +214,12 @@
             android:id="@+id/tab3LL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
+            android:onClick="@{()->vm.tabClick(3)}"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tab4LL"
             app:layout_constraintStart_toEndOf="@+id/tab2LL"
@@ -195,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:visibility="invisible"
+                android:visibility="@{vm.currentCardType==CardType.WAND?View.VISIBLE:View.INVISIBLE,default=invisible}"
                 app:srcCompat="@drawable/circle_violet" />
 
             <TextView
@@ -203,19 +237,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_eb"
-                android:text="@string/cup"
+                android:text="@string/wand"
                 android:textColor="@color/main_violet"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{vm.currentCardType==CardType.WAND?View.VISIBLE:View.GONE,default=gone}" />
 
             <TextView
                 android:id="@+id/tab3TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_r"
-                android:text="@string/cup"
+                android:text="@string/wand"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{vm.currentCardType!=CardType.WAND?View.VISIBLE:View.GONE,default=visible}" />
 
         </LinearLayout>
 
@@ -223,8 +258,12 @@
             android:id="@+id/tab4LL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
+            android:onClick="@{()->vm.tabClick(4)}"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/tab5LL"
             app:layout_constraintStart_toEndOf="@+id/tab3LL"
@@ -234,7 +273,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:visibility="invisible"
+                android:visibility="@{vm.currentCardType==CardType.CUP?View.VISIBLE:View.INVISIBLE,default=invisible}"
                 app:srcCompat="@drawable/circle_violet" />
 
             <TextView
@@ -242,19 +281,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_eb"
-                android:text="@string/sword"
+                android:text="@string/cup"
                 android:textColor="@color/main_violet"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{vm.currentCardType==CardType.CUP?View.VISIBLE:View.GONE,default=gone}" />
 
             <TextView
                 android:id="@+id/tab4TV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nanum_r"
-                android:text="@string/sword"
+                android:text="@string/cup"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{vm.currentCardType!=CardType.CUP?View.VISIBLE:View.GONE,default=visible}" />
 
         </LinearLayout>
 
@@ -262,8 +302,12 @@
             android:id="@+id/tab5LL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
             android:gravity="center"
+            android:onClick="@{()->vm.tabClick(5)}"
             android:orientation="vertical"
+            android:paddingBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tab4LL"
@@ -273,7 +317,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:visibility="invisible"
+                android:visibility="@{vm.currentCardType==CardType.PENTACLE?View.VISIBLE:View.INVISIBLE,default=invisible}"
                 app:srcCompat="@drawable/circle_violet" />
 
             <TextView
@@ -284,7 +328,7 @@
                 android:text="@string/pentacle"
                 android:textColor="@color/main_violet"
                 android:textSize="16sp"
-                android:visibility="gone" />
+                android:visibility="@{vm.currentCardType==CardType.PENTACLE?View.VISIBLE:View.GONE,default=gone}" />
 
             <TextView
                 android:id="@+id/tab5TV"
@@ -293,7 +337,8 @@
                 android:fontFamily="@font/nanum_r"
                 android:text="@string/pentacle"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:visibility="@{vm.currentCardType!=CardType.PENTACLE?View.VISIBLE:View.GONE,default=visible}" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

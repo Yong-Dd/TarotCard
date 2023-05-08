@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/back_round_white_10"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:fontFamily="@font/nanum_eb"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="15dp"
+        android:textColor="@color/black_2f"
+        android:textSize="18sp"
+        tools:text="⚠ 주의" />
+
+    <TextView
+        android:id="@+id/bodyTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/nanum_r"
+
+        android:lineSpacingExtra="5sp"
+        android:paddingTop="10dp"
+        android:textColor="@color/black_2f"
+        android:textSize="14sp"
+        tools:text="정말 삭제하시겠습니까?" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/leftBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fontFamily="@font/nanum_r"
+            android:paddingHorizontal="5dp"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black_2f"
+            tools:text="취소" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/rightBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fontFamily="@font/nanum_r"
+            android:stateListAnimator="@null"
+            android:textColor="@color/black_2f"
+            tools:text="작성 완료 😊" />
+
+    </LinearLayout>
+
+</LinearLayout>
