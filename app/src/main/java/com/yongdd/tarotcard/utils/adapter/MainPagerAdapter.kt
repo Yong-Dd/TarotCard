@@ -1,5 +1,6 @@
 package com.yongdd.tarotcard.utils.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.yongdd.tarotcard.databinding.ItemTarotBinding
 import com.yongdd.tarotcard.model.data.Tarot
 import com.yongdd.tarotcard.utils.enums.CardType
+import com.yongdd.tarotcard.view.CardDetailActivity
+import com.yongdd.tarotcard.viewmodel.CardDetailViewModel
 
 class MainPagerAdapter() : RecyclerView.Adapter<MainPagerAdapter.ViewHolder>() {
 
@@ -32,15 +35,13 @@ class MainPagerAdapter() : RecyclerView.Adapter<MainPagerAdapter.ViewHolder>() {
         fun setItem(item:Tarot){
             binding.cardImg.setImageDrawable(item.cardImg)
             binding.cardImg.setOnClickListener {
-                Toast.makeText(binding.cardImg.context,"상세 개발 중입니다:D", Toast.LENGTH_SHORT).show()
+                val context = binding.cardImg.context
+                val intent = Intent(context,CardDetailActivity::class.java)
+                intent.putExtra("cardDetailUrl",item.cardDetailImgUrl)
+                intent.putExtra("cardOriginUrl",item.originCardImgUrl)
+                context.startActivity(intent)
             }
 
-            // 메뉴 변경을 위해 전과 후에 다른 타입일 경우 itemChangeListener call
-//            val beforeType = if(adapterPosition>0) lists[adapterPosition-1].type else item.type
-//            val nextType = if(adapterPosition+1>lists.size) lists[adapterPosition+1].type else item.type
-//            if(beforeType != item.type || nextType != item.type) {
-//                itemChangeListener(adapterPosition,item.type)
-//            }
         }
     }
 

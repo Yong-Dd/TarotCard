@@ -10,6 +10,9 @@ open class ViewModelFactory(private val repository: BaseRepository) : ViewModelP
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MainViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(CardDetailViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return CardDetailViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
@@ -18,6 +21,9 @@ open class ViewModelFactory(private val repository: BaseRepository) : ViewModelP
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return MainViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(CardDetailViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return CardDetailViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

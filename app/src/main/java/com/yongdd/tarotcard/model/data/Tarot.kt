@@ -5,8 +5,9 @@ import com.yongdd.tarotcard.utils.enums.CardType
 
 data class Tarot(
     val id : Int,
-    val name : String,
+    val name : String?,
     val type : CardType,
     val cardImg : Drawable?,
-    val cardDetailImg : String
+    val cardDetailImgUrl : String,
+    val originCardImgUrl : String?
 )
